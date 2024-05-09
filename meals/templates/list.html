@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body %}
+
+<div class="section pt-0 pb-0">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12" data-aos="fade-up">
+        <h2 class="mb-5 text-center mt-4">Liste de menu avec prix</h2>
+        <ul class="nav site-tab-nav" id="pills-tab" role="tablist">
+          <h2 class="mb-5 text-center">Liste de menu avec prix</h2>
+
+          {% for category in categories %}
+          <li class="nav-item" style="display: inline-block; list-style-type: none; padding: 0; margin: 0;">
+            <a class="nav-link" id="{{ category }}-tab" data-toggle="pill" href="#{{ category }}-content" role="tab" aria-controls="{{ category }}-content" aria-selected="true">{{ category }}</a>
+          </li>
+          {% endfor %}
+        </ul>
+        
+        <div class="tab-content" id="pills-tabContent">
+          {% for category in categories %}
+          <div class="tab-pane fade" id="{{ category }}-content" role="tabpanel" aria-labelledby="{{ category }}-tab">
+            <div class="menu-row">
+              {% for meal in meal_list %}
+              {% if meal.category == category %}
+              <div class="menu-item-wrapper">
+                <div class="meal-thumbnail" style="background-image: url({{ meal.image.url }});" data-aos="fade"></div>
+                <div class="meal-info">
+                  <h3><a href="{% url 'meals:meal_detail' meal.slug %}">{{meal.name}}</a></h3>
+                  <p>{{ meal.description|truncatewords:15 }}</p>
+                  <p class="meal-price">{{ meal.price }}DT</p>
+                   {% if category != Café %}
+                  <a href="{% url 'commande:passer_commande' %}">
+                    <button type="submit" class="btn btn-primary">Passer commande</button>
+                  </a>
+                  {% endif %}
+
+                </div>
+              </div> <!-- .menu-item-wrapper -->
+              {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Combined CSS styles from both code blocks */
+
+  .menu-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: flex-start; /* Align items to the start of the container */
+    margin-bottom: 30px;
+    /* Add transition for smooth animation */
+    -webkit-transition: gap 0.3s ease;
+    -o-transition: gap 0.3s ease;
+    transition: gap 0.3s ease;
+  }
+
+  .menu-item-wrapper {
+    width: calc(33.33% - 20px); /* 33.33% for 3 items per row with a 20px gap */
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* X offset, Y offset, blur radius, spread radius, color */
+    overflow: hidden;
+     /* Add transition for smooth animation */
+     -webkit-transition: box-shadow 0.3s ease;
+     -o-transition: box-shadow 0.3s ease;
+     transition: box-shadow 0.3s ease;
+
+  }
+
+  .meal-thumbnail {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+     /* Add transition for smooth animation */
+     -webkit-transition: background-image 0.3s ease;
+     -o-transition: background-image 0.3s ease;
+     transition: background-image 0.3s ease;
+
+  }
+
+  .meal-info {
+    padding: 15px;
+
+    /* Add transition for smooth animation */
+    -webkit-transition: padding 0.3s ease;
+    -o-transition: padding 0.3s ease;
+    transition: padding 0.3s ease;
+  }
+
+  .meal-info h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+     /* Add transition for smooth animation */
+     -webkit-transition: font-size 0.3s ease, margin-bottom 0.3s ease;
+     -o-transition: font-size 0.3s ease, margin-bottom 0.3s ease;
+     transition: font-size 0.3s ease, margin-bottom 0.3s ease;
+  }
+
+  .meal-info p {
+    font-size: 14px;
+    margin-bottom: 5px;
+     /* Add transition for smooth animation */
+     -webkit-transition: font-size 0.3s ease, margin-bottom 0.3s ease;
+     -o-transition: font-size 0.3s ease, margin-bottom 0.3s ease;
+     transition: font-size 0.3s ease, margin-bottom 0.3s ease;
+   }
+
+  .meal-price {
+    font-size: 30px;
+    color: #000;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+   /* Add transition for smooth animation */
+   -webkit-transition: font-size 0.3s ease, color 0.3s ease;
+   -o-transition: font-size 0.3s ease, color 0.3s ease;
+   transition: font-size 0.3s ease, color 0.3s ease;
+ }
+
+  /* Additional styles from the second code block */
+
+  .section.pt-0.pb-0 {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .container .menus {
+    display: flex;
+    background-color: #f8f9fa;
+  }
+
+  .container .menus .item {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .container .menus .item .image {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .container .menus .item .text h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .container .menus .item .text p {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+
+  .container .menus .item .text .price {
+    font-size: 16px;
+    color: #007bff;
+  }
+</style>
+
+{% endblock body %}

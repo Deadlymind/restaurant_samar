@@ -1,0 +1,77 @@
+<div class="section pt-0 pb-0">
+  <div class="menu-list-container">
+    <div class="menu-categories" style="overflow-x: auto; white-space: nowrap;">
+      <h2>Toutes les catégories</h2>
+      <ul class="category-list" style="display: inline-block; list-style-type: none; padding: 0; margin: 0;">
+        <li style="display: inline-block; margin-right: 10px;"><a href="#" onclick="filterByCategory('Toutes les catégories')">Toutes les catégories</a></li>
+        {% for category in categories %}
+        <li style="display: inline-block; margin-right: 10px;"><a href="#" onclick="filterByCategory('{{ category }}')">{{ category }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="menu-items" id="menuItemsContainer">
+      <div class="menu-row">
+        {% for meal in meals %}
+        <div class="menu-item-wrapper" data-category="{{ meal.category }}" style="display: none;">
+          <div class="meal-thumbnail" style="background-image: url({{ meal.image.url }});" data-aos="fade"></div>
+          <div class="meal-info">
+            <h3>{{ meal.name }}</h3>
+            <p>{{ meal.description|truncatewords:15 }}</p>
+            <p class="meal-price">{{ meal.price }}DT</p>
+            <a href="{% url 'commande:passer_commande' %}">
+              <button type="submit" class="btn btn-primary">Passer commande</button>
+            </a>
+          </div>
+        </div> <!-- .menu-item-wrapper -->
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .menu-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+  }
+
+  .menu-item-wrapper {
+    width: 300px; /* Adjust as needed */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    display: block;
+  }
+
+  .meal-thumbnail {
+    height: 150px; /* Adjust as needed */
+    background-size: cover;
+    background-position: center;
+  }
+
+  .meal-info {
+    padding: 15px;
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const items = document.querySelectorAll('.menu-item-wrapper');
+    items.forEach(item => {
+      item.style.display = 'none';
+    });
+  });
+
+  function filterByCategory(category) {
+    const items = document.querySelectorAll('.menu-item-wrapper');
+    items.forEach(item => {
+      if (category === 'Toutes les catégories' || item.dataset.category === category) {
+        item.style.display = 'block';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+  }
+</script>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tableau de bord d'administration</title>
+</head>
+<style>/* Style de base */
+   body {
+      background-color: #f9f9f9;
+  }
+  
+  .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fef0f0; /* Couleur de fond du conteneur */
+      height: 100vh; /* Cette propriété assure que le conteneur div prendra toute la hauteur de la fenêtre */
+      display: flex;
+      justify-content: center; /* Aligne les éléments horizontalement au centre */
+      align-items: center; 
+      border-radius: 10%;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ajout de l'ombre portée */
+   }
+  
+  /* Style pour la liste des repas */
+  ul {
+      list-style-type: none;
+      padding: 0;
+      margin-left: 30%;
+  }
+  
+  li {
+      margin-bottom: 20px;
+  }
+  
+  /* Style pour les titres */
+  h1, h2 {
+      color: #333;
+      margin: 0; /* Supprime les marges par défaut pour garantir un centrage précis */
+  }
+  
+  /* Style supplémentaire pour les titres si nécessaire */
+  h1 {
+      font-size: 36px;
+  }
+  
+  h2 {
+      font-size: 24px;
+  }
+  
+  /* Style pour la liste des repas */
+  .meals-list {
+      background-color: #f9f9f9;
+      padding: 10px;
+      border-radius: 5px;
+  }
+  
+  .meals-list li {
+      border-bottom: 1px solid #ccc;
+      padding: 10px 0;
+  }
+  
+  /* Style pour les repas individuels */
+  .meal {
+      font-weight: bold;
+  }
+  
+  .quantity {
+      color: #888;
+  }
+  
+ 
+   </style>
+   <body>
+      
+       
+     <div class="container">
+      <div class="center-text">
+         <h1>Top 10 des repas les plus vendus</h1>    
+
+         <ul>
+        {% for item in top_selling_meals %}
+            <li>{{ item.Repas__name }} - Quantity: {{ item.total_quantity }}</li>
+        {% endfor %}
+    </ul>
+      <h1>Total des repas vendus: </h1>
+      <ul>
+            <li>{{ total_meals_sold }} Repas vendus</li>
+      </ul>
+   </div>
+   </div>
+</body>
+</html>

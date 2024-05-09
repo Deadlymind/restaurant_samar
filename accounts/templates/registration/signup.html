@@ -1,0 +1,97 @@
+{%  extends "base.html"   %}
+{% load static %}
+{% block body %}
+
+    <style >
+ /* Styles pour le formulaire */
+ .log {
+    max-width: 600px;
+    margin: 0 auto;
+    margin-top: 120px;
+
+    padding: 20px;
+    background-color: rgb(128, 128, 118); /* Gris */
+    border-radius: 10px;
+    font-family: Arial, sans-serif; /* Changer la police selon vos préférences */
+}
+
+/* Styles pour le titre du formulaire */
+.log h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+/* Styles pour les messages */
+.message-box {
+    border: 2px solid #000;
+    margin: 10px;
+}
+
+/* Styles pour les étiquettes des champs */
+.log label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Styles pour les champs de texte et mot de passe */
+.log input[type="text"],
+.log input[type="email"],
+
+.log input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Pour inclure le padding et le border dans la largeur */
+}
+
+/* Styles pour le bouton de soumission */
+.log button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: orange;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.log button[type="submit"]:hover {
+    background-color:orange;
+}
+
+</style>
+</head>
+<body>
+    
+    <form class="log mb-3" method="post"  action="{% url 'accounts:signup' %}">
+        {% csrf_token %}
+        <h3>Inscrivez-vous ici</h3>
+        {% if messages%} 
+        {% for msg in messages %}
+            <div style ="border: 2px solid #000;margin: 10px;">
+                {{msg}} </div> 
+        {%  endfor  %} 
+{% endif %}
+
+        <label for="username">Nom d'utilisateur</label>
+        <input type="text" placeholder="Nom d'utilisateur" name="username" id="username">
+
+        <label for="email">Email</label>
+        <input type="email" placeholder="Email " name="email" id="email">
+        <label for="phone_number">Numéro de téléphone:</label>
+        <input type="text" id="phone_number" name="phone_number" required>
+        <label for="password1">Mot de passe</label>
+        <input type="password" placeholder="Mot de passe" id="password1" name="password1">
+
+
+        <label for="password2">Confirmer le Mot de passe</label>
+        <input type="password" placeholder="Confirmer  Mot de passe" id="password2" name="password2">
+        <button type="submit">S'inscrire</button>
+        
+        <a href="{% url 'accounts:login' %} " >j'ai déjà un compte</a>
+    </form>
+    {% endblock body %}
+

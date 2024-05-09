@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Orders</title>
+</head>
+<body>
+    <h1>User Orders</h1>
+    <div id="user-orders" data-user-orders="{{ user_orders|safe }}"></div>
+    
+    <!-- JavaScript pour stocker les données dans localStorage -->
+    <script>
+        // Récupérer les données des commandes de l'utilisateur depuis le modèle HTML généré par Django
+        var userOrdersData = JSON.parse(document.getElementById('user-orders').getAttribute('data-user-orders'));
+
+        // Stocker les données dans localStorage
+        localStorage.setItem('userOrders', JSON.stringify(userOrdersData));
+    </script>
+</body>
+</html>

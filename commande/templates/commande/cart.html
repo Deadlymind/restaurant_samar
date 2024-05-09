@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% load static %}
+{% block body %}
+
+   <style>
+    /* Styles pour le titre "Mon Panier" */
+.panier {
+    text-align: center;
+    font-size: 24px;
+    color: #333; /* Couleur du texte */
+    margin-bottom: 20px; /* Marge en bas */
+    margin-top: 100px;
+
+}
+
+/* Styles pour le tableau */
+.tab {
+    width: 80%; /* Largeur du tableau */
+    border-collapse: collapse; /* Fusion des bordures */
+    margin-bottom: 20px; /* Marge en bas */
+    margin-left: 150px; /* Marge en bas */
+
+
+}
+
+/* Styles pour l'en-tête du tableau */
+.cart th {
+    background-color: #f2f2f2; /* Couleur de fond */
+    color: #333; /* Couleur du texte */
+    padding: 10px; /* Espacement intérieur */
+    text-align: left; /* Alignement du texte */
+}
+
+/* Styles pour les lignes du tableau */
+.tab td {
+    padding: 10px; /* Espacement intérieur */
+    border-bottom: 1px solid #ddd; /* Bordure inférieure */
+}
+
+/* Styles pour la dernière ligne du tableau (total) */
+.tab tbody tr:last-child {
+    font-weight: bold; /* Police en gras */
+}
+
+/* Styles pour le lien "Passer une autre commande" */
+.centerr {
+    text-align: center; /* Alignement du texte */
+    margin-top: 20px; /* Marge en haut */
+}
+
+.centerr a {
+    display: inline-block; /* Permet d'appliquer la largeur et la hauteur */
+    color: #fff; /* Couleur du texte */
+    background-color: orange; /* Couleur de fond */
+    text-decoration: none; /* Pas de soulignement */
+    padding: 10px 20px; /* Espacement intérieur */
+    border-radius: 5px; /* Bordure arrondie */
+    transition: background-color 0.3s; /* Transition fluide de la couleur de fond */
+    margin-bottom: 20px;
+}
+
+.centerr a:hover {
+    background-color:olive; /* Couleur de fond au survol */
+}
+
+
+      </style>
+    <h1 class="panier">Mon Panier</h1>
+    
+    <table class="tab">
+        <thead>
+            <tr class="cart">
+                <th>Article</th>
+                <th>Prix unitaire</th>
+                <th>Quantité</th>
+                <th>Prix total </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>{{ order.Repas.name }}</td>
+                <td>{{ order.Repas.price }}dt</td>
+                <td>{{ order.Quantité }}</td>
+                <td>{{ order.total_price }}dt</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="3">Total</td>
+                <td>{{ total_price }}dt</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="centerr"> <!-- Ajoutez la classe "center" pour centrer le contenu -->
+      <a href="{% url 'commande:passer_commande' %}">Passer une autre commande</a>
+  </div>
+  
+  {% endblock body %}
+

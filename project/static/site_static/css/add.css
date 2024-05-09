@@ -1,0 +1,155 @@
+ .navbar {
+        background-color: #ffffff; /* White background */
+        box-shadow: 0px 0px 10px #817d7d;
+        padding: 5px 10px; /* Reduce padding */
+        margin: 0; 
+      }
+  
+    
+  
+      .navbar-brand {
+        color: #e74c3c; /* Navbar brand text color */
+        font-size: 1.5rem;
+        font-family: 'pacifico',cursive; /* Navbar brand text size */
+      }
+      .navbar-nav .nav-item:nth-child(5) .nav-link {
+        color: #ff0000; /* Rouge */
+      }
+  
+   
+  
+      .navbar-expand-lg .navbar-nav .nav-link  {
+padding: 1rem 1rem;
+font-size: 1.4rem;
+color:  #e74c3c;
+position: relative;      }
+.navbar-expand-lg .navbar-nav .nav-link:hover  {
+ border-top:  3px solid #e74c3c;      }
+ .navbar-expand-lg .navbar-nav .nav-link.active  {
+  border-top:  3px solid #e74c3c;  
+  color:  #e74c3c   }
+      
+  
+      .navbar-toggler {
+        border-color:  #343a40; /* Navbar toggler border color */
+      }
+  
+      .navbar-toggler-icon {
+        background-image: url('data:image/svg+xml,%3csvg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"%3e%3cpath stroke="rgba(108,117,125,.5)" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M4 7h22M4 15h22M4 23h22" /%3e%3c/svg%3e'); /* Custom navbar toggler icon */
+      }
+  
+      .dropdown-menu {
+        border-color:  #343a40; /* Dropdown menu border color */
+      }
+  
+      .dropdown-item {
+        color: #343a40; /* Dropdown item text color */
+      }
+  
+      .dropdown-item:hover {
+        background-color: #343a40; /* Dropdown item background color on hover */
+      }
+      .menu-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: flex-start;
+}
+
+.menu-item-wrapper {
+  width: calc(25% - 20px); /* 25% pour 4 éléments par ligne avec un gap de 20px */
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.meal-thumbnail {
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+}
+
+.meal-info {
+  padding: 15px;
+}
+
+.meal-info h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.meal-info p {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.meal-price {
+  font-size: 16px;
+  color: #007bff;
+}
+/* Style pour la section des avis des clients */
+
+/* Titre */
+.col-md-8 h3 {
+  font-size: 24px;
+  color: #333;
+}
+
+/* Nom de l'utilisateur */
+.col-md-8 p.user {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* Commentaire */
+.col-md-8 p.comment {
+  margin-bottom: 10px;
+}
+
+/* Étoiles */
+.col-md-8 .fa-star {
+  color: #FFD700; /* Couleur des étoiles */
+}
+
+.col-md-8 .no-checked {
+  color: #ccc; /* Couleur des étoiles non cochées */
+}
+
+/* Séparation entre les avis */
+.col-md-8 hr {
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 10px 0;
+}
+
+#spimob-chatbot-iframe {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            width: 450px;
+            height: 640px;
+            border: 10px;
+            background: none transparent !important;
+            z-index: 999999999 !important;
+            display: none;
+            /*Chatbotcachépardéfaut*/border-radius: 50px;
+            /*Bordarrondi*/margin-bottom: 10px;
+            margin-right: 4%;
+            -webkit-border-radius: 50px;
+            -moz-border-radius: 50px;
+            -ms-border-radius: 50px;
+            -o-border-radius: 50px;
+}
+
+      #chatbot-button {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          z-index: 999999999; /* Assure que le bouton est au-dessus du chatbot */
+         
+
+      }
+      
+
+      

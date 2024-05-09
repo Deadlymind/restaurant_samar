@@ -1,0 +1,224 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>3andna El binna</title>
+    <link rel="icon" type="image/png" href="https://img.icons8.com/ios-filled/50/restaurant--v1.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:300,400,700,800|Open+Sans:300,400,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'site_static/css/bootstrap.css' %}">
+
+    <link rel="stylesheet" href="{% static 'site_static/css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'site_static/css/owl.carousel.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'site_static/css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'site_static/css/aos.css' %}">
+
+    <link rel="stylesheet" href="{% static 'site_static/css/bootstrap-datepicker.css' %}">
+    <link rel="stylesheet" href="{% static 'site_static/css/jquery.timepicker.css' %}">
+
+    <link rel="stylesheet" href="{% static 'site_static/fonts/ionicons/css/ionicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'site_static/fonts/fontawesome/css/font-awesome.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'site_static/fonts/flaticon/font/flaticon.css' %}">
+
+    <!-- Theme Style -->
+    <link rel="stylesheet" href="{% static 'site_static/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'site_static/css/add.css' %}">
+
+  
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/"><img width="50" height="50" src="https://img.icons8.com/ios-filled/50/restaurant--v1.png" alt="restaurant--v1"/> 3andna El Binna</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-between">
+            <li class="nav-item  " >
+              <a class="nav-link" href="/"   >Acceuil</a>
+            </li>
+           
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'meals:meal_list' %}" > Menu</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'aboutus:aboutus_list' %}" >À propos de nous</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'reservation:reserve_table' %}" >Réservation</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'commande:passer_commande' %}" >Commande</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav ml-auto mb-2 mb-lg-2">
+           
+            {% if request.user.is_authenticated and request.user.is_staff %}
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'commande:admin_dashboard' %}" >Tableau de bord2</a>
+  </li>
+{% endif %}
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img width="30" height="30" src="https://img.icons8.com/ios-filled/50/user-male-circle.png" alt="user-male-circle"/>
+              </a>
+              {% comment %} <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                <li><a class="dropdown-item" href="{% url 'accounts/registration:Change password' %}">Changer le mot de passe</a></li>
+                <li><a class="dropdown-item" href="{% url 'accounts/registration:password_reset' %}">Mot de passe oublié</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{% url 'accounts/registration:logout' %}">Déconnexion</a></li>
+              </ul> {% endcomment %}
+
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'commande:afficher_panier' %}" style="font-size:1.52em;"><span class="fa fa-shopping-cart">1</span></a>
+            </li>
+            {% if not request.user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'accounts:signup' %}" >Inscription</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'accounts:login' %}   ">Connexion</a>
+            </li> 
+            {% endif %}
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+    
+{% block body %}
+        
+      {% endblock body %}
+      {% if user.is_authenticated %}
+
+      <div id="chatbot-container">
+        <div id="chatbot-button" style="display: block;">
+          <button onclick="toggleChatbot()">
+            <img width="48" height="48" src="https://img.icons8.com/color/48/facebook-messenger--v1.png" alt="facebook-messenger--v1"/>        </div>
+      
+        <!-- Iframe du chatbot (initiallement caché) -->
+        <iframe src="https://kidjou3chatbot1-h4gho8zipqhkkpry4xjvmp.streamlit.app//?embedded=true"  frameborder="0" id="spimob-chatbot-iframe" ></iframe>
+      </div>
+      {% endif %}
+
+      <!-- Script pour afficher/cacher le chatbot -->
+      <script>
+        var chatbotIframe = document.getElementById('spimob-chatbot-iframe');
+        var chatbotVisible = false;
+      
+        function toggleChatbot() {
+            if (!chatbotVisible) {
+                chatbotIframe.style.display = 'block';
+                chatbotVisible = true;
+            } else {
+                chatbotIframe.style.display = 'none';
+                chatbotVisible = false;
+            }
+        }
+      </script>
+      
+        <footer>
+        <div class="site-footer">
+          <div class="container">
+            <div class="row small-gutters mb-5">
+              <div class="col-md-6 col-lg-3 mb-5" data-aos="fade" data-aos-delay="100">
+                <div class="footer-widget">
+                  <h3>
+                    Dîner-restaurant</h3>
+                  <p></p>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-3 mb-5" data-aos="fade" data-aos-delay="200">
+                <div class="footer-widget">
+                  <h3>Service du déjeuner</h3>
+                  <p>Réservation de 12h00 à 13h30</p>
+                  <h3>Service de dîner</h3>
+                  <p>Tous les jours: <br> 
+                    Réservation de 18h00 à 21h00</p>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-3 mb-5" data-aos="fade" data-aos-delay="300">
+                <div class="footer-widget">
+                  <h3>Liens rapides</h3>
+                  <ul>
+                    <li><a href="#">Aide &amp; Soutien</a></li>
+                    <li><a href="#">politique de confidentialité</a></li>
+                    <li><a href="#">Entrer en contact</a></li>
+                    <li><a href="#">Témoignages</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-3 mb-5" data-aos="fade" data-aos-delay="400">
+                <div class="footer-widget footer-contact-widget">
+
+                  <h3>
+                    S'abonner</h3>
+                  <p>
+                   Inscrivez-vous pour recevoir les dernières offres et promotions.</p>
+                  <form action="" class="form-subscribe mb-5">
+                    <div class="form-group form-field">
+                      <input type="submit" value="Envoyer" class="btn btn-primary">
+                      <input type="text" class="form-control" placeholder="Email">
+                    </div>
+                  </form>
+
+                  <h3>Contactez-nous</h3>
+                  <p class="contact-email">3andnaElBinna@gmail.com</p>
+                  
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </footer>
+
+      <div class="site-footer-copyright">
+        <div class="container">
+          <div class="row">
+
+             <p class="footer-text col-md-12"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://3andnaElBinna.com" target="_blank">3andna El Binna</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- loader -->
+    <div id="loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#f4b214"/></svg></div>
+
+    <script src="{% static 'site_static/js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'site_static/js/jquery-migrate-3.0.1.min.js' %}"></script>
+    <script src="{% static 'site_static/js/popper.min.js' %}"></script>
+    <script src="{% static 'site_static/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'site_static/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'site_static/js/jquery.waypoints.min.js' %}"></script>
+
+    <script src="{% static 'site_static/js/bootstrap-datepicker.js' %}"></script>
+    <script src="{% static 'site_static/js/jquery.timepicker.min.js' %}"></script>
+    <script src="{% static 'site_static/js/jquery.stellar.min.js' %}"></script>
+    <!-- jQuery library -->
+
+    <script src="{% static 'site_static/js/aos.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+
+    <script  
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdE7pGeOfH-dzewsVBpUUhxYeOYRJdM9k&callback=initMap">
+    </script>
+
+    <script src="{% static 'site_static/js/main.js' %}"></script>
+  </body>
+</html>

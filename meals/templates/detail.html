@@ -1,0 +1,164 @@
+{%  extends "base.html"   %}
+{% load static %}
+{% block body %}
+<style>
+.checked {
+    color: orange;
+  }
+    .rating {
+    margin-top: 40px;
+    border: none;
+    float: left;
+  
+  }
+  
+  .rating > label {
+     color: #9C9C9C;
+    font-size: 7px;
+    float:right;
+  }
+  
+  
+  .rating > label:before {
+    margin: 5px;
+    font-size: 2em;
+    font-family: FontAwesome;
+    content: "\f005";
+    display: inline-block;
+  }
+  
+  .rating > input {
+    display: none;
+  }
+  
+  .rating > input:checked ~ label,
+  .rating:not(:checked) > label:hover,
+  .rating:not(:checked) > label:hover ~ label {
+    color: #F79426;
+  }
+  
+  .rating > input:checked + label:hover,
+  .rating > input:checked ~ label:hover,
+  .rating > label:hover ~ input:checked ~ label,
+  .rating > input:checked ~ label:hover ~ label {
+    color: #FECE31;
+  }
+  
+  
+  #star{
+  font-size: 10px;
+  color:grey;
+  }
+  
+  #check-star{
+  font-size: 10px;
+  }
+
+
+
+  
+  </style>
+<div class="section">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-md-8" data-aos="fade-up">
+
+                    <img class="meal_img" src="{{meal_detail.image.url}}" alt="">
+                    <h2>{{meal_detail}}</h2>
+                    <p>{{meal_detail.description}}</p>
+
+                    <p>Pour  :{{meal_detail.people}} Personnes</p>
+                    <p>Temps de préparation : {{meal_detail.preperation_time}} 
+                      Minutes</p>
+                    <p>Prix : {{meal_detail.price}}DT </p>
+                    <a href="{% url 'commande:passer_commande' %}">
+                      
+                      <button type="submit" class="btn btn-primary">Passer commande</button>                  </a>
+
+              </div>
+              
+            </div>
+            
+
+          </div>
+          
+        </div>
+        
+        <div class="col-md-8" data-aos="fade-up">
+          
+          <h3>Toutes les notes et avis</h3>
+          {% for x in reviews%}
+          <p>{{ x.user }}</p>
+          <p>{{ x.comment }}</p>
+          
+           {% if x.rating > 0 %}
+                            <i class="fa fa-star {% if x.rating  < 1 %} no-checked {% else %} checked {% endif %} " id="check-star"></i>
+                            <i class="fa fa-star {% if x.rating  < 2 %} no-checked {% else %} checked {% endif %} " id="check-star"></i>
+                            <i class="fa fa-star {% if x.rating  < 3 %} no-checked {% else %} checked {% endif %} " id="check-star"></i>
+                            <i class="fa fa-star {% if x.rating  < 4 %} no-checked {% else %} checked {% endif %} " id="check-star"></i>
+                            <i class="fa fa-star {% if x.rating  < 5 %} no-checked {% else %} checked {% endif %} " id="check-star"></i>
+                          <hr>
+                          {% else %}
+          
+                           <i class="fa fa-star " id="star"></i>
+                           <i class="fa fa-star" id="star"></i>
+                           <i class="fa fa-star" id="star"></i>
+                           <i class="fa fa-star" id="star"></i>
+                           <i class="fa fa-star" id="star"></i>
+                                  &nbsp;<span>Pas de notes</span>
+          
+                          <hr>
+          
+                          {% endif %}
+          {% endfor %}
+          <form method="post" action="{% url 'meals:meal_detail' slug=meal_detail.slug %}">
+            {% csrf_token %}
+          
+            <div class="col-md-6">
+                          <p style="font-weight:600;">Écrire un avis </p>
+                          <form method="post" action="{% url 'meals:meal_detail' slug=meal_detail.slug %}">
+                            {% csrf_token %}
+          
+                                     <div class="form-group required">
+                                <div class="rating">
+          
+                                    <input type="radio" id="star5" name="rating" value="5" />
+                                    <label class="star" for="star5" title="Awesome" aria-hidden="true"></label>
+                                    <input type="radio" id="star4" name="rating" value="4" />
+                                    <label class="star" for="star4" title="Great" aria-hidden="true"></label>
+                                    <input type="radio" id="star3" name="rating" value="3" />
+                                    <label class="star" for="star3" title="Very good" aria-hidden="true"></label>
+                                    <input type="radio" id="star2" name="rating" value="2" />
+                                    <label class="star" for="star2" title="Good" aria-hidden="true"></label>
+                                    <input type="radio" id="star1" name="rating" value="1" />
+                                    <label class="star" for="star1" title="Bad" aria-hidden="true"></label>
+          
+                                  </div>
+                              </div>
+          
+                              </div>
+                              <textarea name="item_review"  placeholder="écrire un avis" rows="6" cols="50" id="review-text" required></textarea>
+                              <br>
+          
+                          <div class="row">
+          
+                              <div class="col-md-4">
+          
+                                    <input type="submit"  class="btn btn-primary mt-2" value="Poster  ">
+          <!--                    col finish-->
+          
+          
+                          </div>
+          
+                          </form>
+                      </div>
+
+      </div>
+
+
+        
+
+      </div> <!-- .main-wrap -->
+      
+      
+      {% endblock body %}

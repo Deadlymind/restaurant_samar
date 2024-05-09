@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des commandes</title>
+</head>
+<body>
+    <h1>Liste des commandes</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Utilisateur</th>
+                <th>Nom du plat</th>
+                <th>Quantité</th>
+                <th>Prix total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order_id, order_data in orders.items %}
+            <tr>
+                <td>{{ order_data.user_id }}</td>
+                <td>{{ order_data.meal_name }}</td>
+                <td>{{ order_data.quantity }}</td>
+                <td>{{ order_data.total_price }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

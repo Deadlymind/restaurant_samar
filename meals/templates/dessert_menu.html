@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Desserts Categories</title>
+</head>
+<body>
+    <h1>Desserts Categories</h1>
+    <ul>
+        {% for category in desserts_categories %}
+            <li>{{ category.name }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

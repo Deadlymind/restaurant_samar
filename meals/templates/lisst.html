@@ -1,0 +1,9 @@
+{% for category, meals in meals_by_category.items %}
+    <h2>{{ category }}</h2>
+    {% for meal in meals %}
+        <p>{{ meal.name }}</p>
+        <!-- Add other meal details as needed -->
+    {% empty %}
+        <p>No meals available for this category.</p>
+    {% endfor %}
+{% endfor %}

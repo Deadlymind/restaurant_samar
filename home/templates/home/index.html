@@ -1,0 +1,277 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+  <div class="cover_1">
+    <div class="img_bg" style="background-image: url({% static 'site_static/img/home.jpg' %})" data-stellar-background-ratio="0.5">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-12" data-aos="fade-up">
+            <h2 class="heading"></h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> <!-- .cover_1 -->
+
+  <div class="section services-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-lg-3" data-aos="fade-up">
+          <div class="media feature-icon d-block text-center">
+            <div class="icon">
+
+              <span class="flaticon-soup"></span>
+            </div>
+            <div class="media-body">
+              <h3>Cuisine de haute qualité</h3>
+              <p>Découvrez une cuisine d'excellence, où qualité rime avec saveurs exceptionnelles</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+          <div class="media feature-icon d-block text-center">
+            <div class="icon">
+              <span class="flaticon-vegetables"></span>
+            </div>
+            <div class="media-body">
+              <h3>Koujintna zemniya</h3>
+              <p>Savourez l'authenticité de chaque plat, concocté avec soin pour une expérience culinaire inoubliable</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+          <div class="media feature-icon d-block text-center">
+            <div class="icon">
+              <span class="flaticon-pancake"></span>
+            </div>
+            <div class="media-body">
+              <h3>Koujintna revisité</h3>
+              <p>Réseri fisa3  fisa3!</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="500">
+          <div class="media feature-icon d-block text-center">
+            <div class="icon">
+              <span class="flaticon-tray"></span>
+            </div>
+            <div class="media-body">
+              <h3>Commande facile</h3>
+              <p>  و ذوق البنة commande ايجا عدي </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> <!-- .section -->
+
+  <div class="section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-7 text-center" data-aos="fade-up">
+          <h2 class="mb-4">Menu</h2>
+          <h3 class="lead">Tal9a 3ana les plats li t7eb 3lehem lkoul </h3>
+        </div>
+      </div>
+    </div>
+  </div> <!-- .section -->
+  
+  <div class="section pt-0 pb-0">
+    <div class="menus d-flex bg-light">
+      {% for meal in meals %}
+      <div class="d-flex item">
+        <div class="image" style="background-image: url({{meal.image.url}});" data-aos="fade"></div>
+        <div class="text">
+
+          <h3>{{meal.name}}</h3>
+          <p>{{meal.description|truncatewords:15}}</p>
+          <p class="price">{{meal.price}}DT</p>
+          <a href="{% url 'commande:passer_commande' %}">
+            <button type="submit" class="btn btn-primary">Passer commande</button>
+          </a>
+        </div>
+      </div> <!-- .item -->
+      {% endfor %}
+    </div>
+  </div> <!-- .section -->
+
+  <div class="section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8" data-aos="fade-up">
+          <h2 class="mb-5 text-center">Liste de menu avec prix</h2>
+          <ul class="nav site-tab-nav" id="pills-tab" role="tablist">
+            {% for category in categories %}
+            <li class="nav-item">
+              <a class="nav-link" id="{{category}}-tab" data-toggle="pill" href="#{{category}}-content" role="tab" aria-controls="{{category}}-content" aria-selected="true">{{category}}</a>
+            </li>
+            {% endfor %}
+          </ul>
+          <div class="tab-content" id="pills-tabContent">
+            {% for category in categories %}
+            <div class="tab-pane fade" id="{{category}}-content" role="tabpanel" aria-labelledby="{{category}}-tab">
+              {% for meal in meal_list %}
+              {% if meal.category == category%}
+              <div class="d-block d-md-flex menu-food-item">
+                <div class="text order-1 mb-3">
+                  <h3><a href="{% url 'meals:meal_detail' meal.slug %}">{{meal.name}}</a></h3>
+
+                  <p>{{meal.description|truncatewords:20}}</p>
+                </div>
+
+                <div class="price order-2">
+                  <strong>{{meal.price}}DT</strong>
+                </div>
+              </div> <!-- .menu-food-item -->
+              {% endif %}
+              {% endfor %}
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section" data-aos="fade">
+    <div class="container">
+      <div class="row justify-content-center mb-5">
+            <div class="col-md-7 text-center"  data-aos="fade-up">
+          
+               <h3>Toutes les notes et avis</h3>
+            </div>
+      </div>
+    <div class="row justify-content-center text-center" data-aos="fade-up">
+      <div class="col-md-8">
+        <div class="owl-carousel home-slider-loop-false">
+          <div class="item">
+            <blockquote class="testimonial">
+              {% for x in reviews%}
+             <p>{{ x.user }}</p>
+            <p>{{ x.comment }}</p>
+    
+                     {% if x.rating > 0 %}
+                      <i class="fa fa-star {% if x.rating  < 1 %} no-checked {% else %} checked {% endif %} " id="check-star"></i>
+                      <i class="fa fa-star {% if x.rating  < 2 %} no-checked {% else %} checked {% endif %} " id="check-star"></i>
+                      <i class="fa fa-star {% if x.rating  < 3 %} no-checked {% else %} checked {% endif %} " id="check-star"></i>
+                      <i class="fa fa-star {% if x.rating  < 4 %} no-checked {% else %} checked {% endif %} " id="check-star"></i>
+                      <i class="fa fa-star {% if x.rating  < 5 %} no-checked {% else %} checked {% endif %} " id="check-star"></i>
+                    <hr>
+                    {% else %}
+    
+                     <i class="fa fa-star " id="star"></i>
+                     <i class="fa fa-star" id="star"></i>
+                     <i class="fa fa-star" id="star"></i>
+                     <i class="fa fa-star" id="star"></i>
+                     <i class="fa fa-star" id="star"></i>
+                            &nbsp;<span>Pas de notes</span>
+    
+                    <hr>
+    
+                    {% endif %}
+                {% endfor %}
+               </blockquote>
+
+          </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+  <div class="section bg-light">
+    <div class="container">
+      <div class="row justify-content-center mb-5" data-aos="fade-up">
+        <div class="col-md-8  text-center">
+          <h2 class="mb-3">Événements &amp; actualités</h2>
+          <p class="lead">Découvrez les derniers événements et actualités excitantes de notre restaurant !</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6">
+
+         {% for post in posts %}
+           
+        
+          <div class="media d-block d-lg-flex mb-5"  data-aos="fade-up" data-aos-delay="100">
+            <figure class="mr-4 horizontal">
+              <img src="{{post.image.url}}" alt="Image placeholder" class="img-fluid">
+            </figure>
+            <div class="media-body">
+              <h3><a href="{% url 'blog:post_detail' post.id %}">{{post.title}}</a></h3>
+              <p class="post-meta"><span><span class="fa fa-calendar"></span> {{post.created}}</span></p>
+              <p>{{post.content|truncatewords:10}}</p>
+              <p><a href="{% url 'blog:post_detail' post.id %}" class="btn btn-primary btn-outline-primary btn-sm">Read More</a></p>
+            </div>
+          </div> <!-- .media -->
+          {% endfor %} 
+
+
+        </div> <!-- .col-md-6 -->
+
+        <div class="col-lg-6">
+          <div class="media d-block mb-5" data-aos="fade-up"  data-aos-delay="400">
+            <figure>
+              <a href="#"><img src="{{latest_post.image.url}}" alt="Image placeholder" class="img-fluid"></a>
+            </figure>
+            <div class="media-body">
+              <h3><a href="#">{{latest_post.title}}</a></h3>
+              <p class="post-meta"><span><span class="fa fa-calendar"></span> April 22, 2018</span></p>
+              <p>Ramadan s approche à grands pas et comme nous vous avons habitués chaque année, nous vous présenterons les meilleurs ruptures de jeûne, et les plats les plus copieux et délicieux de la cuisine Tunisienne... ❤😍😋1
+                
+              </p>
+              <p><a href="#" class="btn btn-primary btn-outline-primary btn-sm">Read More</a></p>
+            </div>
+          </div> <!-- .media -->
+        </div>
+            
+          </div> <!-- .media -->
+        </div>
+      </div>
+  
+
+
+  <div class="section">
+      <div class="container">
+        <div class="row justify-content-center mb-5" data-aos="fade-up">
+          <div class="col-md-8  text-center">
+
+
+
+            <h2 class="mb-3">Pourquoi nous choisir ?</h2>
+            <p class="lead">Découvrez les derniers événements et actualités excitantes de notre restaurant !</p>
+          </div>
+        </div>
+        <div class="row large-gutters">
+          <div class="col-md-6"  data-aos="fade-up" data-aos-delay="200">
+            <img src="{% static 'site_static/img/chef_1.jpg' %}" alt="Image placeholder" class="img-fluid rounded">
+          </div>
+          <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="accordion" id="accordion">
+              {% for info in why_choose_us %}
+
+                <div class="accordion-item">
+                  <h3 class="mb-0">
+                    <a class="btn-block p-3" data-toggle="collapse" href="#collapse{{info.id}}" role="button" aria-expanded="true" aria-controls="collapseOne">{{info.title}} <span class="icon"></span></a>
+                  </h3>
+                  <div id="collapse{{info.id}}" class="collapse " aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="p-3">
+                      <p>{{info.content}}</p>
+                    </div>
+                  </div>
+                </div> <!-- .accordion-item -->
+
+              {% endfor %}   
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> <!-- .section -->
+
+
+  
+
+</div> <!-- .main-wrap -->
+{% endblock body %}

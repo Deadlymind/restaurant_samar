@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+  
+
+  
+      <div class="main-wrap">
+        <div class="cover_1 cover_sm">
+
+            <div class="container">
+
+              <div class="row align-items-center justify-content-center">
+                <h3 class="heading">3andna El binna    </h3>
+
+                <div class="col-md-7" data-aos="fade-up">
+                  <p class="lead"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> <!-- .cover_1 -->
+
+        <div class="section">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-7" data-aos="fade-up">
+                <img src="{% static 'site_static/img/95.jpg' %}" alt="Image placeholder" class="img-fluid">
+                <img src="{% static 'site_static/img/96.jpg' %}" alt="Image placeholder" class="img-fluid">
+
+              </div>
+              <div class="col-md-5 pl-md-5" data-aos="fade-up" data-aos-delay="200">
+                <h2 class="mb-4">{{about.title}}</h2>
+                <p>{{about.content}}</p>
+               
+              </div>
+            </div>
+          </div>
+        </div> <!-- .section -->
+
+        <div class="section">
+          <div class="container">
+            <div class="row justify-content-center mb-5" data-aos="fade-up">
+              <div class="col-md-8  text-center">
+                <h2 class="mb-3">Pourquoi nous choisir </h2>
+                <p class="lead">Pourquoi nous choisir ? Parce que nous vous offrons une qualité supérieure, un service attentionné et une expérience inoubliable à chaque fois.</p>
+              </div>
+            </div>
+            <div class="row large-gutters">
+              <div class="col-md-6"  data-aos="fade-up" data-aos-delay="200">
+                <img src="{% static 'site_static/img/img_2.jpg' %}" alt="Image placeholder" class="img-fluid rounded">
+              </div>
+              <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="accordion" id="accordion">
+                  {% for info in why_choose_us %}
+
+                    <div class="accordion-item">
+                      <h3 class="mb-0">
+                        <a class="btn-block p-3" data-toggle="collapse" href="#collapse{{info.id}}" role="button" aria-expanded="true" aria-controls="collapseOne">{{info.title}} <span class="icon"></span></a>
+                      </h3>
+                      <div id="collapse{{info.id}}" class="collapse " aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="p-3">
+                          <p>{{info.content}}</p>
+                        </div>
+                      </div>
+                    </div> <!-- .accordion-item -->
+
+                  {% endfor %}   
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> <!-- .section -->
+          
+        <div class="section">
+          <div class="container">
+            <div class="row justify-content-center mb-5" data-aos="fade-up">
+              <div class="col-md-8  text-center">
+                <h2 class="mb-3">Chefs de restaurant</h2>
+                <p class="lead">Bénéficiez de l'expertise et de la passion de notre chef pour des plats délicieux et mémorables à chaque repas</p>
+              </div>
+            </div>
+            <div class="row">
+              {% for one in chef %}
+                
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
+                  <img src="{{one.image.url}}" alt="Image placeholder" class="img-fluid mb-4 rounded">
+                  <h3 class="mb-3">{{one.name}}</h3>
+                  <p class="post-meta text-muted">{{one.title}}</p>
+                  <p class="mb-5">{{one.bio}}</p>
+                </div>
+
+              {% endfor %}
+            </div>
+          </div>
+        </div> <!-- .section -->
+
+      </div> <!-- .main-wrap -->
+      
+      {% endblock body %}
